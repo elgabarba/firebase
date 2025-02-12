@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 class paginaregristro extends StatelessWidget {
   const paginaregristro({super.key});
 
+  void ferRegistre(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController tecEmail = TextEditingController();
@@ -20,18 +24,18 @@ class paginaregristro extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //logo
-                Icon(
+                const Icon(
                   Icons.fireplace,
                   size: 120,
-                  color: const Color.fromARGB(255, 245, 123, 66),
+                  color: Color.fromARGB(255, 245, 123, 66),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
 
                 //frase
-                Text(
+                const Text(
                   "crea una cuenta nueva",
                   style: TextStyle(
                     color: Colors.black,
@@ -39,23 +43,23 @@ class paginaregristro extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
 
                 //text divisor
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
                   child: Row(
                     children: [
                       Expanded(
                         child: Divider(
                           thickness: 1,
-                          color: const Color.fromARGB(255, 99, 45, 247),
+                          color: Color.fromARGB(255, 99, 45, 247),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
                           "Regristro",
                           style: TextStyle(color: Colors.black),
@@ -64,7 +68,7 @@ class paginaregristro extends StatelessWidget {
                       Expanded(
                         child: Divider(
                           thickness: 1,
-                          color: const Color.fromARGB(255, 99, 45, 247),
+                          color: Color.fromARGB(255, 99, 45, 247),
                         ),
                       ),
                     ],
@@ -93,12 +97,12 @@ class paginaregristro extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Ya eres miembro"),
-                      SizedBox(
+                      const Text("Ya eres miembro"),
+                      const SizedBox(
                         height: 10,
                       ),
                       GestureDetector(
-                        child: Text("Hacer Login",
+                        child: const Text("Hacer Login",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -109,10 +113,11 @@ class paginaregristro extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
                 //Boton regristro
-                BtnAuten(),
+                BtnAuten(text: "Registra't", onTap: ferRegistre,),
+                BtnAuten(text: "Logout", onTap: () {},),
 
               ],
             ),
