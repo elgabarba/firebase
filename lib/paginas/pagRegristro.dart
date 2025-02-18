@@ -1,3 +1,4 @@
+import 'package:firebase/auth/servei_auth.dart';
 import 'package:firebase/componentes/Btn_auten.dart';
 import 'package:firebase/componentes/TxtFld_auten.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ class paginaregristro extends StatelessWidget {
   const paginaregristro({super.key});
 
   void ferRegistre(){
+    final ServeiAuth serveiAuth = ServeiAuth();
 
+    serveiAuth.registreAmbEmailIPassword("email1@email1.com", "123456");
   }
 
   @override
