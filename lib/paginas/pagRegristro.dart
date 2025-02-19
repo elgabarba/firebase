@@ -6,11 +6,33 @@ import 'package:flutter/material.dart';
 class paginaregristro extends StatelessWidget {
   const paginaregristro({super.key});
 
-  void ferRegistre(){
-    final ServeiAuth serveiAuth = ServeiAuth();
+  void ferRegistre(BuildContext context, String email, String password, String confPassword) async{
+    
+    if (password.isEmpty || email.isEmpty) {
+      //Gestionar-ho
+      return;
+    }
+    if (password != confPassword){
+      //Gestio del cas
+      return;
+    }
+    try {
+      ServeiAuth().registreAmbEmailIPassword(email, password);
+    } catch (e) {
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text("Error"),
+          content: Text(e.toString()),
+        )
+      );
+    }
+      
 
-    serveiAuth.registreAmbEmailIPassword("email1@email1.com", "123456");
   }
+    //final ServeiAuth serveiAuth = ServeiAuth();
+    //serveiAuth.registreAmbEmailIPassword("email1@email1.com", "123456");
+  
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +141,7 @@ class paginaregristro extends StatelessWidget {
                 const SizedBox(height: 20,),
 
                 //Boton regristro
-                BtnAuten(text: "Registra't", onTap: ferRegistre,),
+                BtnAuten(text: "Registra't", onTap: () => ferRegistre(context,tecEmail.text, tecPasw.text, tecPasw2.text),),
                 BtnAuten(text: "Logout", onTap: () {},),
 
               ],
