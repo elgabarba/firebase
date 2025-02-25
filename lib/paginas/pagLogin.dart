@@ -3,24 +3,16 @@ import 'package:firebase/componentes/Btn_auten.dart';
 import 'package:firebase/componentes/TxtFld_auten.dart';
 import 'package:flutter/material.dart';
 
-class paginaregristro extends StatelessWidget {
+class Paglogin extends StatelessWidget {
 
   final Function()? ferClick;
-  const paginaregristro({super.key, this.ferClick});
 
-  void ferRegistre(BuildContext context, String email, String password, String confPassword) async{
-    
-    if (password.isEmpty || email.isEmpty) {
-      //Gestionar-ho
-      return;
-    }
-    if (password != confPassword){
-      //Gestio del cas
-      return;
-    }
-    String? error = await ServeiAuth().registreAmbEmailIPassword(email, password);
-    
-    if (error != null) {
+  const Paglogin({super.key, this.ferClick});
+
+    void ferLogin(BuildContext context, String email, String password) async{
+      String? error = await ServeiAuth().loginAmbEmailIPassword(email, password);
+
+      if (error != null) {
       showDialog(
         context: context, 
         builder: (context) => AlertDialog(
@@ -32,25 +24,17 @@ class paginaregristro extends StatelessWidget {
           content: Text(error),
         )
       );
+      } else {
+        print("login fet.");
+      }
     }
 
-    try {
-      
-    } catch (e) {
-      
-    }
-      
-
-  }
-    //final ServeiAuth serveiAuth = ServeiAuth();
-    //serveiAuth.registreAmbEmailIPassword("email1@email1.com", "123456");
-  
 
   @override
   Widget build(BuildContext context) {
+
     final TextEditingController tecEmail = TextEditingController();
     final TextEditingController tecPasw = TextEditingController();
-    final TextEditingController tecPasw2 = TextEditingController();
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 124, 185, 241),
@@ -73,7 +57,7 @@ class paginaregristro extends StatelessWidget {
 
                 //frase
                 const Text(
-                  "crea una cuenta nueva",
+                  "Benvingut/da de nou",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -98,7 +82,7 @@ class paginaregristro extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
-                          "Regristro",
+                          "Fes login",
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -122,11 +106,6 @@ class paginaregristro extends StatelessWidget {
                     controller: tecPasw,
                     hintTxt: "Escribe la contraseña",
                     obscureTxt: true),
-                //confirma pasword
-                TxtFld_auten(
-                    controller: tecPasw2,
-                    hintTxt: "Vuelve a escribir la contraseña",
-                    obscureTxt: true),
 
                 //no eta regristrado
                 Padding(
@@ -134,16 +113,16 @@ class paginaregristro extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text("Ya eres miembro"),
+                      const Text("Encara no ets membre?"),
                       const SizedBox(
                         height: 10,
                       ),
                       GestureDetector(
                         onTap: ferClick,
-                        child: const Text("Fes Login",
+                        child: const Text("Registre't",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 7, 17, 107),
+                          color: Colors.black,
                         ),
                         ),
                       ),
@@ -154,7 +133,7 @@ class paginaregristro extends StatelessWidget {
                 const SizedBox(height: 20,),
 
                 //Boton regristro
-                BtnAuten(text: "Registra't", onTap: () => ferRegistre(context,tecEmail.text, tecPasw.text, tecPasw2.text),),
+                BtnAuten(text: "Login", onTap: () => ferLogin(context,tecEmail.text, tecPasw.text),),
               ],
             ),
           ),
