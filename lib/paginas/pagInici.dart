@@ -1,6 +1,7 @@
 import 'package:firebase/auth/servei_auth.dart';
 import 'package:firebase/chat/servei_chat.dart';
 import 'package:firebase/componentes/item_usuari.dart';
+import 'package:firebase/paginas/pagChat.dart';
 import 'package:flutter/material.dart';
 
 class Paginici extends StatelessWidget {
@@ -11,7 +12,7 @@ class Paginici extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[200],
-        title: const Text("Pagina d'inici"),
+        title: Text(ServeiAuth().getUsuariActual()!.email.toString()),
         actions: [
           IconButton(onPressed: () {
             ServeiAuth().ferLogout();
@@ -35,7 +36,7 @@ class Paginici extends StatelessWidget {
           //Es retornen les dades
           return ListView(
             children: snapshot.data!.map<Widget> (
-              (dadesUsuari) => _construeixItemUsuari(dadesUsuari)
+              (dadesUsuari) => _construeixItemUsuari(dadesUsuari, context)
             ).toList(),
           );
         }
@@ -43,7 +44,18 @@ class Paginici extends StatelessWidget {
     );
   }
 
-  Widget _construeixItemUsuari(Map<String, dynamic> dadesUsuari) {
-    return ItemUsuari(emailUsuari: dadesUsuari["email"]);
+  Widget _construeixItemUsuari(Map<String, dynamic> dadesUsuari, BuildContext context) {
+
+    if (dadesUsuari["email"] == ServeiAuth().getUsuariActual()!.email) {
+      return Container();
+    }
+    return ItemUsuari(emailUsuari: dadesUsuari["email"], onTap: () {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(
+          builder: (context) => const Pagchat(),
+        ),
+      );
+    },);
   }
 }

@@ -4,6 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ServeiAuth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
+  //Usuari actual
+  User? getUsuariActual() {
+    return _auth.currentUser;
+  }
 
   //fer logout
   Future<void> ferLogout() async {
