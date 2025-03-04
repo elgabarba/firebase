@@ -19,11 +19,23 @@ class ServeiAuth {
   Future<String?> loginAmbEmailIPassword(String email, String password) async {
     try {
       UserCredential credencialUsuari = await _auth.signInWithEmailAndPassword(email: email, password: password);
+
+      //comprueba si el usario esta dado de alta
+      final QuerySnapshot querySnapshot = await _firestore.collection("Usuarios").where("email", isEqualTo: email).get();
+
+      if (querySnapshot.docs.isEmpty) {
+         _firestore.collection("Usuaris").doc(credencialUsuari.user!.uid).set({
+        "uid": credencialUsuari.user!.uid,
+        "email": email,
+        "nom": "",
+      });
+      }
       return null;
     } on FirebaseAuthException catch(e) {
       return "Error: ${e.message}";
     }
   }
+  
 
 
   //fer registre

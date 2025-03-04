@@ -53,7 +53,7 @@ class Paginici extends StatelessWidget {
       Navigator.push(
         context, 
         MaterialPageRoute(
-          builder: (context) => const Pagchat(),
+          builder: (context) => Pagchat(idReceptor: dadesUsuari["uid"],),
         ),
       );
     },);
