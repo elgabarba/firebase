@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/auth/servei_auth.dart';
 import 'package:firebase/chat/servei_chat.dart';
+import 'package:firebase/componentes/bombolla_missatge.dart';
 import 'package:flutter/material.dart';
 
 class Pagchat extends StatefulWidget {
@@ -36,7 +39,27 @@ class _PaginaChatState extends State<Pagchat> {
   }
   
   Widget _crearZonaMostrarMissatges() {
-    return const Expanded(child: Text("1"));
+    return Expanded(
+      child: StreamBuilder(
+        stream: ServeiChat().getMissatges(ServeiAuth().getUsuariActual()!.uid, widget.idReceptor), 
+        builder: (context, snapshot){
+          if (snapshot.hasError) {
+            return const Text("Error caregant datos...");
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("Carregant missatges...");
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((document) => _construirItemMissatge(document)).toList(),
+          );
+        }
+      )
+    );
+  }
+
+  Widget _construirItemMissatge(DocumentSnapshot documentSnapshot){
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    return BombollaMissatge(missatge: data["missatge"],);
   }
   
   Widget _crearZonaEscriureMissatge() {
