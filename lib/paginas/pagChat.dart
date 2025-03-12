@@ -16,10 +16,20 @@ class Pagchat extends StatefulWidget {
 class _PaginaChatState extends State<Pagchat> {
   final TextEditingController tecMissatge = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+
+  FocusNode teclatMobil = FocusNode();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    teclatMobil.addListener((){
+      Future.delayed(const Duration(milliseconds: 500), (){
+        ferScrollCapAvall();
+      });
+    });
+
     Future.delayed(const Duration(milliseconds: 500), (){
       ferScrollCapAvall();
     });
