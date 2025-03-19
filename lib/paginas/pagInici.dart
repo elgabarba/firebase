@@ -1,6 +1,7 @@
 import 'package:firebase/auth/servei_auth.dart';
 import 'package:firebase/chat/servei_chat.dart';
 import 'package:firebase/componentes/item_usuari.dart';
+import 'package:firebase/paginas/editar_dades_usuari.dart';
 import 'package:firebase/paginas/pagChat.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,12 @@ class Paginici extends StatelessWidget {
         backgroundColor: Colors.deepPurple[200],
         title: Text(ServeiAuth().getUsuariActual()!.email.toString()),
         actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const EditarDadesUsuari()));
+            }, 
+            icon: const Icon(Icons.person)
+            ),
           IconButton(onPressed: () {
             ServeiAuth().ferLogout();
           }, 
