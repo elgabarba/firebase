@@ -83,12 +83,14 @@ class _PaginaChatState extends State<Pagchat> {
   }
 
   Widget _construirItemMissatge(DocumentSnapshot documentSnapshot) {
-    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-    return BombollaMissatge(
-      missatge: data["missatge"],
-      idAutor: data["idAutor"],
-    );
-  }
+  Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+  return BombollaMissatge(
+    missatge: data["missatge"],
+    idAutor: data["idAutor"],
+    timestamp: data["timestamp"], // Aquí pasamos el Timestamp
+  );
+}
+
 
   Widget _crearZonaEscriureMissatge() {
     return Padding(
